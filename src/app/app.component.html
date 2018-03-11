@@ -4,5 +4,19 @@
     Welcome to {{ title }}!
   </h1>  
 </div>
-
-<image-async [url]="urlImage"></image-async>
+<div class="components">
+    <image-async [url]="urlImage">
+      <div class="thumb-overlay">
+        <div class="sk-folding-cube">    
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+      </div> 
+    </image-async>
+  
+    <image-async [url]="urlImage2">
+      <img src="../assets/loading.gif" alt="">
+    </image-async>  
+</div>

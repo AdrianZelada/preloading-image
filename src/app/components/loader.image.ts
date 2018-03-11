@@ -1,18 +1,29 @@
-import { Component, OnInit, Input, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'image-async',
     templateUrl: 'loader.image.html',
-    styleUrls:['./loader.image.css']
+    styleUrls:['./loader.image.css'],
+    animations: [
+        trigger('imageAnimation',[
+          state('show-image', style({
+            opacity:'1',
+          })),
+          state('hide-image', style({
+            opacity:'0'
+          })),
+          transition('show-image <=> hide-image', animate('1000ms ease-in')),
+        ])
+      ]
 })
 
-
 export class LoadingImageComponent implements OnInit {
-    viewImage : boolean = false;
-    
+    imageCtrl : string = 'hide-image';
+    contentCtrl : string = 'show-image';
+
     @Input('url') set url(url:string){        
-        if(url){    
-            this.viewImage=false;        
+        if(url){                   
             this.loadImage(url);            
         }        
     }
@@ -21,12 +32,15 @@ export class LoadingImageComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.lImage.nativeElement.onload=()=>{
-            this.viewImage=true;                        
+        this.lImage.nativeElement.onload=()=>{             
+            this.imageCtrl='show-image';
+            this.contentCtrl='hide-image';                   
         }
      }
 
     loadImage(urlImage){
+        this.imageCtrl='hide-image';
+        this.contentCtrl='show-image';  
         this.lImage.nativeElement.src = urlImage;        
     }
 }
